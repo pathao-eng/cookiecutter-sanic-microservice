@@ -1,6 +1,13 @@
 # Cookiecutter Sanic Microservice
 
-> A tempalate for rapid development of Sanic based RESTful Microservices
+> A template for rapid development of Sanic based RESTful Microservices
+
+
+## Usage
+
+```
+$ cookiecutter gh:mashrikt/cookiecutter-sanic-microservice
+```
 
 ## License
 
