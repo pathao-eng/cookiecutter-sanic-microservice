@@ -1,5 +1,15 @@
+import sentry_sdk
 from sanic import Sanic
 from sanic.response import json
+from sentry_sdk.integrations.sanic import SanicIntegration
+
+from .config import SENTRY_DSN
+
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    integrations=[SanicIntegration()]
+)
 
 app = Sanic()
 
