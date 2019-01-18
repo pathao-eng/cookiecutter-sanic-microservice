@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - ./source:/app
-    command: bash -c "gunicorn {{cookiecutter.app_name}}.app:app --bind 0.0.0.0:8000 --worker-class sanic.worker.GunicornWorker"
+    command: bash -c "if [ -z $PORT ]; then export PORT=8000; fi && gunicorn {{cookiecutter.app_name}}.app:app --bind 0.0.0.0:${PORT} --worker-class sanic.worker.GunicornWorker"
+    
     ports:
-      - 8000:8000
+      - ${PORT}:${PORT}
