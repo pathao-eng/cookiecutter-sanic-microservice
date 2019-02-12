@@ -1,5 +1,6 @@
 {
   "github_repository_name": "myproject",
   "app_name": "myproject",
-  "description": "My Project"
+  "description": "My Project",
+  "use_celery": "y"
 }

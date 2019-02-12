@@ -1,10 +1,29 @@
 version: '3'
 
 services:
+  {%- if cookiecutter.use_celery == "y" %}
+  worker: &worker
+  {%- else %}
   web:
+  {%- endif %}
     build: .
     volumes:
       - ./source:/app
+
+    {%- if cookiecutter.use_celery == "y" %}
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379
+
+    command: celery -A {{cookiecutter.app_name}} worker -l info
+  web:
+    <<: *worker
+  {% endif %}
+
     command: bash -c "gunicorn {{cookiecutter.app_name}}.app:app --bind 0.0.0.0:8000 --worker-class sanic.worker.GunicornWorker"
     ports:
       - 8000:8000
+
+  {%- if cookiecutter.use_celery == "y" %}
+  redis:
+    image: redis:latest
+  {%- endif %}
